@@ -1,7 +1,8 @@
+import os
 import telebot
 from telebot import types
 
-TOKEN = "8439150262:AAFjzY2AwzaGjQrqOlVXaqkE98ofXoBcxF0"
+TOKEN = os.getenv("BOT_TOKEN")
 bot = telebot.TeleBot(TOKEN)
 
 ADMIN_ID = 5833487732  # O'zingizning Telegram ID raqamingiz
@@ -133,7 +134,6 @@ def callback(call):
         bot.send_message(call.message.chat.id, "Necha dona kerakligini yozing:")
         bot.register_next_step_handler_by_chat_id(call.message.chat.id, get_quantity)
 
-     # Miqdor qabul qilish
 def get_quantity(message):
         user_id = message.from_user.id
         if user_id in orders:
@@ -163,4 +163,4 @@ def get_quantity(message):
         else:
             bot.send_message(message.chat.id, "Xato yuz berdi. /start bilan qayta boshlang.")
 
-bot.polling(none_stop=True)
+bot.infinity_polling()
